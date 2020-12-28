@@ -1,0 +1,8 @@
+*.o
+*.out
+*.exe
+*.licenseheader
+.vs/
+.vscode/
+.dist/
+.bo/

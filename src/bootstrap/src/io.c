@@ -21,19 +21,37 @@
  *   SOFTWARE.
  */
 
-#include "include/neutron.h"
-#include <stdio.h>
-#include "include/macros.h"
 #include "include/io.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main(int argc, char *argv[])
+char *neutronReadFile(const char *filename)
 {
-    if (argc < 2)
-    {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+	FILE *fp;
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
 
-    return 0;
+	fp = fopen(filename, "rb");
+	if (fp == NULL)
+	{
+		printf("[IO, Bootstrap] Could not read file `%s`, are you sure that you entered the right filename?\n", filename);
+		exit(1);
+	}
+
+	char *buffer = (char *)calloc(1, sizeof(char));
+	buffer[0] = '\0';
+
+	while ((read = getline(&line, &len, fp)) != -1)
+	{
+		buffer = (char *)realloc(buffer, (strlen(buffer) + strlen(line) + 1) * sizeof(char));
+		strcat(buffer, line);
+	}
+
+	fclose(fp);
+	if (line)
+		free(line);
+
+	return buffer;
 }

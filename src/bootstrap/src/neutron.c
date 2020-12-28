@@ -22,18 +22,30 @@
  */
 
 #include "include/neutron.h"
-#include <stdio.h>
-#include "include/macros.h"
+#include "include/lexer.h"
 #include "include/io.h"
+#include "include/parser.h"
+#include <stdlib.h>
+#include "include/token.h"
 
-int main(int argc, char *argv[])
+void neutronCompile(char *src)
 {
-    if (argc < 2)
-    {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+    lexer_T *lexer = initLexer(src);
+    parser_T *parser = initParser(lexer);
+    AST_T *root = parserParse(parser);
+    printf("%p\n", root);
+    token_T *tok = 0;
 
-    return 0;
+    // As long as token is not end of file we will compile :)
+    while ((tok = lexerNextToken(lexer))->type != TOKEN_EOF)
+    {
+        printf("%s\n", tokenToString(tok));
+    }
+}
+
+void neutronCompileFile(const char *filename)
+{
+    char *src = neutronReadFile(filename);
+    neutronCompile(src);
+    free(src);
 }

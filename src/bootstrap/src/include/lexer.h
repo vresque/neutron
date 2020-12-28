@@ -21,19 +21,34 @@
  *   SOFTWARE.
  */
 
-#include "include/neutron.h"
+#ifndef NTN_LEXER_H
+#define NTN_LEXER_H
+#include "token.h"
 #include <stdio.h>
-#include "include/macros.h"
-#include "include/io.h"
 
-int main(int argc, char *argv[])
+typedef struct LEXER_STRUCT
 {
-    if (argc < 2)
-    {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+    char *src;
+    size_t src_size;
+    char c;
+    unsigned int i;
+} lexer_T;
 
-    return 0;
-}
+lexer_T *initLexer(char *src);
+
+void lexerAdvance(lexer_T *lexer);
+
+char lexerPeek(lexer_T *lexer, int offset);
+
+token_T *lexerAdvanceWith(lexer_T *lexer, token_T *token);
+
+token_T *lexerAdvanceCurrent(lexer_T *lexer, int type);
+
+void lexerSkipWhitespace(lexer_T *lexer);
+
+token_T *lexerParseID(lexer_T *lexer);
+
+token_T *lexerParseNumber(lexer_T *lexer);
+
+token_T *lexerNextToken(lexer_T *lexer);
+#endif

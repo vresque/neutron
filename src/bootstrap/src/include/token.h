@@ -21,19 +21,37 @@
  *   SOFTWARE.
  */
 
-#include "include/neutron.h"
-#include <stdio.h>
-#include "include/macros.h"
-#include "include/io.h"
-
-int main(int argc, char *argv[])
+#ifndef NTN_TOKEN_H
+#define NTN_TOKEN_H
+typedef struct TOKEN_STRUCT
 {
-    if (argc < 2)
+    char *value;
+    enum
     {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+        TOKEN_ID,          // ?,
+        TOKEN_DOUBLECOLON, // ::,
+        TOKEN_COLON,       // :,
+        TOKEN_COMMA,       // ,,
+        TOKEN_EQUALS,      // =,
+        TOKEN_HYPHEN,      // -,
+        TOKEN_LT,          // <,
+        TOKEN_GT,          // >,
+        TOKEN_ARROW_RIGHT, // ->,
+        TOKEN_RBRACE,      // },
+        TOKEN_LBRACE,      // {,
+        TOKEN_LPAREN,      // ),
+        TOKEN_RPAREN,      // (,
+        TOKEN_COMP,        // comp (function),
+        TOKEN_INT,         // int
+        TOKEN_SEMI,        // ;
+        TOKEN_EOF,         // End of file,
+    } type;
+} token_T;
 
-    return 0;
-}
+token_T *initToken(char *value, int type);
+
+const char *tokenTypeToString(int type);
+
+char *tokenToString(token_T *token);
+
+#endif

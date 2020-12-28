@@ -21,19 +21,9 @@
  *   SOFTWARE.
  */
 
-#include "include/neutron.h"
-#include <stdio.h>
-#include "include/macros.h"
-#include "include/io.h"
+#ifndef NTN_IO_H
+#define NTN_IO_H
 
-int main(int argc, char *argv[])
-{
-    if (argc < 2)
-    {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+char *neutronReadFile(const char *filename);
 
-    return 0;
-}
+#endif

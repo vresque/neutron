@@ -21,19 +21,44 @@
  *   SOFTWARE.
  */
 
-#include "include/neutron.h"
+#include "include/parser.h"
+#include "include/lexer.h"
 #include <stdio.h>
-#include "include/macros.h"
-#include "include/io.h"
+#include <stdlib.h>
 
-int main(int argc, char *argv[])
+parser_T *initParser(lexer_T *lexer)
 {
-    if (argc < 2)
-    {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+	parser_T *parser = calloc(1, sizeof(struct PARSER_STRUCT));
+	parser->lexer = lexer;
+	parser->token = lexerNextToken(lexer);
 
-    return 0;
+	return parser;
+}
+
+token_T *parserEat(parser_T *parser, int type)
+{
+	if (parser->token->type != type)
+	{
+		printf("[Parser, Bootstrap] Syntax Error. Unexpected token: '%s', was expecting '%s'. Are you sure that you did not mispell anything? \n", tokenToString(parser->token), tokenTypeToString(type));
+		exit(1);
+	}
+
+	parser->token = lexerNextToken(parser->lexer);
+	return parser->token;
+}
+
+AST_T *parserParse(parser_T *parser)
+{
+	return initAST(AST_NOOP);
+}
+
+AST_T *parserParseCompound(parser_T *parser)
+{
+	// Spelling mistake
+	AST_T *compound = initAST(AST_COMPUND);
+	while (parser->token->type != TOKEN_EOF)
+	{
+		/* AST_T* child =*/parserParse(parser);
+	}
+	return initAST(AST_NOOP);
 }

@@ -21,19 +21,23 @@
  *   SOFTWARE.
  */
 
-#include "include/neutron.h"
-#include <stdio.h>
-#include "include/macros.h"
-#include "include/io.h"
+#ifndef NTN_PARSER_H
+#define NTN_PARSER_H
 
-int main(int argc, char *argv[])
+#include "lexer.h"
+#include "AST.h"
+
+typedef struct PARSER_STRUCT
 {
-    if (argc < 2)
-    {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+	lexer_T *lexer;
+	token_T *token;
+} parser_T;
 
-    return 0;
-}
+parser_T *initParser(lexer_T *lexer);
+
+token_T *parserEat(parser_T *parser, int type);
+
+AST_T *parserParse(parser_T *parser);
+
+AST_T *parserParseCompound(parser_T *parser);
+#endif

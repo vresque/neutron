@@ -21,19 +21,13 @@
  *   SOFTWARE.
  */
 
-#include "include/neutron.h"
-#include <stdio.h>
-#include "include/macros.h"
-#include "include/io.h"
+#include "include/AST.h"
+#include <stdlib.h>
 
-int main(int argc, char *argv[])
+AST_T *initAST(int type)
 {
-    if (argc < 2)
-    {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+	AST_T *ast = calloc(1, sizeof(struct AST_STRUCT));
+	ast->type = type;
 
-    return 0;
+	return ast;
 }

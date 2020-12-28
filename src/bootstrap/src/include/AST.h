@@ -21,19 +21,23 @@
  *   SOFTWARE.
  */
 
-#include "include/neutron.h"
-#include <stdio.h>
-#include "include/macros.h"
-#include "include/io.h"
+#ifndef NTN_AST_H
+#define NTN_AST_H
 
-int main(int argc, char *argv[])
+typedef struct AST_STRUCT
 {
-    if (argc < 2)
-    {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+	enum
+	{
+		AST_COMPUND,
+		AST_FUNCTION_DEFINITION,
+		AST_DEFINITION_TYPE,
+		AST_FUNCTION_KEYWORD,
+		AST_VARIABLE,
+		AST_STATEMENT,
+		AST_NOOP,
+	} type;
+} AST_T;
 
-    return 0;
-}
+AST_T *initAST(int type);
+
+#endif

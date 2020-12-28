@@ -21,19 +21,13 @@
  *   SOFTWARE.
  */
 
-#include "include/neutron.h"
-#include <stdio.h>
-#include "include/macros.h"
-#include "include/io.h"
+#ifndef NTN_MACROS_H
+#define NTN_MACTOS_H
 
-int main(int argc, char *argv[])
-{
-    if (argc < 2)
-    {
-        printf("[Main, Bootstrap] Please specify a file to compile");
-        return 1;
-    }
-    neutronCompileFile(argv[1]);
+#define MAX(a, b) \
+	a > b ? a : b
 
-    return 0;
-}
+#define MIN(a, b) \
+	a < b ? a : b
+
+#endif
