@@ -34,22 +34,22 @@ comp main = (argc: int, argv: Array<String>): int -> {
 
 So, now lets break down this block of code. It is mentioned if a part is being removed on the description of it :).
 
-'comp': This is the keyword for **any** function in Neutron, no matter what it returns. It is short for 'component'. It will not be removed,
+`comp`: This is the keyword for **any** function in Neutron, no matter what it returns. It is short for 'component'. It will not be removed,
 
-'main': This is the name of the function.
+`main`: This is the name of the function.
 'argc, argc': These are input parameters of the main function.
 
-': type': In Neutron, variable types can be declared after the variable is created. You can do this using a colon and a variable type after it. Using this we promised the function that it will get an integer and nothing else. Since we do not want that this function gets mad at us which would lead the compiler to be mad at us, we have to keep our promise. These declarations will be optional in the final version of neutron.
+`: type`: In Neutron, variable types can be declared after the variable is created. You can do this using a colon and a variable type after it. Using this we promised the function that it will get an integer and nothing else. Since we do not want that this function gets mad at us which would lead the compiler to be mad at us, we have to keep our promise. These declarations will be optional in the final version of neutron.
 
-'->': This is reffered to as a 'Pointy'. It is being used to show that a function body is following.
+`->`: This is reffered to as a 'Pointy'. It is being used to show that a function body is following.
 
-'{}': These are there to show where a function ends and where it starts. These may be removed later.
+`{}`: These are there to show where a function ends and where it starts. These may be removed later.
 
-'print("Hello World")': This is calling the function 'print', it takes in a string, in our case this string is "Hello World".s
+`print("Hello World")`: This is calling the function 'print', it takes in a string, in our case this string is "Hello World".s
 
-';': A semicolon, it is used to tell the compiler that a line ends. This will be removed in final neutron.
+`;` : A semicolon, it is used to tell the compiler that a line ends. This will be removed in final neutron.
 
-'return 0': If you remember, we promised main an integer using: ()**: int**. A return 0 statement will give the main the number 0.
+`return 0`: If you remember, we promised main an integer using: ()**: int**. A return 0 statement will give the main the number 0.
 
 ## GETTERS
 
